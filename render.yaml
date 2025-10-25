@@ -1,0 +1,74 @@
+# Render manifest for this repository.
+# This manifest declares a Static Site using Render's `static_sites` schema.
+# It also includes a commented `services` section with a Docker/web example you can enable.
+# Edit the `branch` values and `name` fields to match your repository/service naming.
+
+static_sites:
+  - name: "thermal-scanner-static" # Change this name if you want
+    branch: "main" # change to your default branch (e.g., master)
+    env: "node"
+    plan: "free" # change to hobby/standard as needed
+    region: "oregon" # change region if desired
+    buildCommand: "npm ci --legacy-peer-deps && npm run build"
+    publishPath: "dist"
+    autoDeploy: true
+    envVars: # optional build-time environment variables
+      - key: NODE_ENV
+        value: production
+      # Example: set API_BASE_URL at build time to embed env-specific API URL into the static bundle
+      - key: API_BASE_URL
+        value: "https://api.example.com" # change per environment or use secrets in Render dashboard
+
+# Optional Docker/web service example (uncomment and edit if you prefer Docker builds instead)
+# services:
+#   - type: "web"
+#     name: "thermal-scanner-docker" # Docker-based Web Service
+#     env: "docker"
+#     plan: "free"
+#     region: "oregon"
+#     branch: "main"
+#     dockerfilePath: "./Dockerfile"
+#     autoDeploy: true
+#     # For Docker services, Render will build the Dockerfile. Add runtime env vars here:
+#     envVars:
+#       - key: EXAMPLE_VAR
+#         value: "replace-me"
+
+# Environment-specific examples (commented). Copy the `static_sites` block and adjust branch/name/API_BASE_URL.
+#
+# staging example:
+# static_sites:
+#   - name: "thermal-scanner-static-staging"
+#     branch: "staging"
+#     env: "node"
+#     plan: "free"
+#     region: "oregon"
+#     buildCommand: "npm ci --legacy-peer-deps && npm run build"
+#     publishPath: "dist"
+#     autoDeploy: true
+#     envVars:
+#       - key: NODE_ENV
+#         value: staging
+#       - key: API_BASE_URL
+#         value: "https://staging-api.example.com"
+#
+# production example:
+# static_sites:
+#   - name: "thermal-scanner-static-production"
+#     branch: "main"
+#     env: "node"
+#     plan: "free"
+#     region: "oregon"
+#     buildCommand: "npm ci --legacy-peer-deps && npm run build"
+#     publishPath: "dist"
+#     autoDeploy: true
+#     envVars:
+#       - key: NODE_ENV
+#         value: production
+#       - key: API_BASE_URL
+#         value: "https://api.example.com"
+
+# Notes:
+# - Use `static_sites` for Static Site services and `services` for web/Docker services.
+# - Update `branch` and `name` to match your repository and desired service names.
+# - For sensitive values, set environment variables/secrets in the Render dashboard after provisioning.
