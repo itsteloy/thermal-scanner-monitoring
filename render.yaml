@@ -18,6 +18,8 @@ static_sites:
       # Example: set API_BASE_URL at build time to embed env-specific API URL into the static bundle
       - key: API_BASE_URL
         value: "https://api.example.com" # change per environment or use secrets in Render dashboard
+      - key: VITE_WS_URL
+        value: "ws://192.168.4.1:81" # change per environment or use secrets in Render dashboard
 
 # Optional Docker/web service example (uncomment and edit if you prefer Docker builds instead)
 # services:
